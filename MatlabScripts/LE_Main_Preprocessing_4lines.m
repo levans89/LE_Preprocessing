@@ -47,9 +47,9 @@
     %% make compound maps
     %====Create excel files of each compound master plate====%
     [Selleck]=import_compoundplates(); % imports Selleck2K raw compound map
-    plateprinter; % makes compound plates in excel in lab agreed format
+    %plateprinter; % makes compound plates in excel in lab agreed format
     
     %% create expt platemaps
     %====Create excel files of each experiment plate====%
-    exp_anno_maker4lines(currexp,cpd_DB,year,expt) % makes experimental plates in excel in lab agreed format
+    %exp_anno_maker4lines(currexp,cpd_DB,year,expt) % makes experimental plates in excel in lab agreed format
     

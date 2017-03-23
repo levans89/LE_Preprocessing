@@ -84,4 +84,4 @@ for a = 1:size(platenames,1) % for each plate
         xlswrite(platenames{a,1},info,1) % write info sheet in the beginning
     end
 end
-        
+ clear targets pathways        
