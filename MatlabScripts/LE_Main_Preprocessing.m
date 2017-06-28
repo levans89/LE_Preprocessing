@@ -12,18 +12,18 @@
 %% Set all variables 
 
 % define experimental details
-batches = {'2016018_001','2016018_002','2016018_003','2016018_004','2016018_005','2016018_006','2016018_007','2016018_C001', '2016018_C002', '2016018_C003','2016018_C004','2016018C005','2016018_carryover','2017018_001','2017018_003'}';
-addcpd_dates = {'20160126','20160202','20160216','20160426','20160503','20160601','20160627','20160627', '20160719', '20160802','20160809','20160906','20161129','20170117','20170207'}';
+batches = {'2016018_001','2016018_002','2016018_003','2016018_004','2016018_005','2016018_006','2016018_007','2016018_C001', '2016018_C002', '2016018_C003','2016018_C004','2016018C005','2016018_carryover','2017018_001','2017018_003','2017018_005','2017018_006'}';
+addcpd_dates = {'20160126','20160202','20160216','20160426','20160503','20160601','20160627','20160627', '20160719', '20160802','20160809','20160906','20161129','20170117','20170207','20170411','20170418'}';
 % standard experimental details for this project
 year = '2017';
 initial = 'LE';
-MS = 'Nikon2' % for plate renaming purposes no spaces
+MS = 'Nikon2'; % for plate renaming purposes no spaces
 MS2 = 'Nikon II';% Nikon I, Nikon II, InCell 2000 % for plateinfo purposes as set in labtoolbox
 
 %% PC standard datapaths
 
 % add all the paths needed for these codes to run and call matlab functions
-%addpath(genpath('W:\2015_09_HTS_LE\code\')) %add code and all subfolders to matlab search path
+addpath(genpath('W:\2015_09_HTS_LE\code\')) %add code and all subfolders to matlab search path
 data_path = 'Z:\Data_Transfer\'; % location of raw data copied from InCell for pre-processing
 record_filepath = 'W:\2015_09_HTS_LE\data\processing_history\'; %output for processing history
 plate_infopath = 'W:\Common\plateinfo\'; %output for generated plateinfo
@@ -33,18 +33,20 @@ plate_DB = 'Plate_database_latest.xlsx';
 %% 1. Call rename_incell.LE.m
 % define the record filepath to record the old and new names
 
-for i = 14 %:length(batches) % index of the batch do you want to analyze or all batches or 
+for i = length(batches) % index of the batch do you want to analyze or all batches or 
     batch = batches(i,1)
     addcpd_date = addcpd_dates(i,1)
     [nametable] = rename_incell_LE2(data_path, batch, record_filepath, addcpd_date, MS, initial);
 end
 
-savepath = 
 save(fullfile(record_filepath,batch{1,1}))
 
 %% 2. 20160212LE replace functionality of the labtoolbox plateinfo generation
 % Get nametable if using Nikon
-nametable = dir()
+nametable = dir('T:\2017');
+
+%nametable = nametable(946)%2017018_006
+%nametable = nametable(942:944)%2017018_005
 %% 
 %load(fullfile(record_filepath,batch{1,1}))
 [P] = set_structures(plate_infopath, nametable, platedata_folder);

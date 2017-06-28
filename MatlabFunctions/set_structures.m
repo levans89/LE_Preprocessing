@@ -1,15 +1,13 @@
 % Louise Evans March 2016
 % Purpose: replace function of labtoolbox so that batches are quicker to process.
 
-function [P] = set_structures(plate_infopath, nametable, platedata_folder)
+function [P] = set_structures(plate_infopath, nametable, platedata_folder, MS2)
 
 img_folders = nametable(2:end,2);
 expression = 'plate_';
-expression2 = '_'
 prefix = 'plateindex_';
-[~, ~, Exp_DB] = xlsread(fullfile(plate_DB_path,plate_DB),1);
 
-
+plates = nametable(2:end,2);
 
 for b = 1:length(plates)% make all the folders and subfolders for each plate in the project/plates folder
     cd(platedata_folder);
@@ -37,7 +35,7 @@ P_template.project= '2015_09_HTS_LE';
 P_template.binning= 2%2;
 P_template.Ctype= '';
 P_template.Ptype= 384;
-P_template.Mtype= 'Nikon II';% InCell 2000, Nikon I, Nikon II
+P_template.Mtype= '';% InCell 2000, Nikon I, Nikon II
 P_template.Btype= 12;
 P_template.Nframe= 1;
 P_template.Year= 2016;
@@ -51,21 +49,15 @@ P_template.range= [0 0 0; 4095 4095 4095];
 
 % rename P_template fields appropriately
 
-for a =1:size(img_folders,2)
+for a =1:size(img_folders,1)
     P = P_template;
     splitname_plate = regexp(img_folders(a),expression,'split');
-    splitname_plate2 = regexp(img_folders(a),expression2,'split');
     subname_plate = splitname_plate{1,1}{1,2};
     P.plate = subname_plate;
     P.title = img_folders{a,1};
+    P.Mtype = MS2;
     p = strcat(prefix,subname_plate);
     save(fullfile(plate_infopath,p),'P')
 end
-
-
-% for n=1:length(img_folders)
-%     configpath = fullfile(platedata_folder,img_folders{n},'/config');% copy option.mat file describing segmentation parameters from the source location into the destination locations for calling in the Sg pipeline by Cluster.
-%     copyfile(source_option,configpath)
-% end
 
 end
