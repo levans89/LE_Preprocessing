@@ -114,7 +114,7 @@ nametable = vertcat(nametable_headers,nametable_48);
 display(nametable)
 
 % run movefile function to rename all the folders
-for x=2:size(nametable_48,1)
+for x=1:size(nametable_48,1)
     cd(filepath_48{1,1});
     movefile(nametable_48{x,1},nametable_48{x,2});
 end

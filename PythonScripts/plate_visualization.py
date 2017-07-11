@@ -60,6 +60,7 @@ plateNames = ['LE_20170515_InCell2000_plate_2017018235_10x_t48',
               'LE_20170523_InCell2000_plate_2017018291_10x_t48',
               'LE_20170523_InCell2000_plate_2017018293_10x_t48']
 
+
 # plateNames = ['LE_20170425_InCell2000_plate_2017018171_10x_t48',
 #               'LE_20170425_InCell2000_plate_2017018175_10x_t48',
 #               'LE_20170425_InCell2000_plate_2017018178_10x_t48',
@@ -131,6 +132,7 @@ plateNames = ['LE_20170515_InCell2000_plate_2017018235_10x_t48',
 #               'LE_20170502_InCell2000_plate_2017018216_10x_t48',
 #               'LE_20170502_InCell2000_plate_2017018222_10x_t48',
 #               'LE_20170502_InCell2000_plate_2017018207_10x_t48']
+
 
 col_number = 12  # State how many columns you wish to see on each side of the plate. So if you want the whole plate this should be 12
 
