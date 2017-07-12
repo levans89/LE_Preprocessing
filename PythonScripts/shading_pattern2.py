@@ -2,6 +2,8 @@
 """
 Script for background subtraction, instead of rolling ball
 """
+import sys
+sys.path.append("W:\PyCommonLibrary\pysrc")
 from pyAnalyzer import illum_correction
 setting_file = "W:/2015_09_HTS_LE/Code_LE/Global_config/basicSettingsLocal.py"
 redo = False
@@ -16,7 +18,7 @@ plateList = ['LE_20170627_InCell2000_plate_2017018333_10x_t48',
              'LE_20170627_InCell2000_plate_2017018332_10x_t48',
              'LE_20170627_InCell2000_plate_2017018331_10x_t48',
              'LE_20170627_InCell2000_plate_2017018330_10x_t48',
-             'LE_20170627_InCell2000_plate_2017018329_10x_t48',
+#             'LE_20170627_InCell2000_plate_2017018329_10x_t48',
              'LE_20170627_InCell2000_plate_2017018328_10x_t48',
              'LE_20170627_InCell2000_plate_2017018327_10x_t48',
              'LE_20170627_InCell2000_plate_2017018326_10x_t48',
