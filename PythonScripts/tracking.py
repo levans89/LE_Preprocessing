@@ -2,7 +2,7 @@ from pyExplorer.dataExplorer import track
 
 # This is to track what has been done for all plates in microscope hard drive.
 
-tracker = track.DataTracker('W:/2015_09_HTS_LE/Code_LE/Global_config/basicSettingsLocal.py')
+tracker = track.DataTracker('W://2015_09_HTS_LE/Code_LE/Global_config/basicSettingsLocal.py')
 
 '''
 plates = ['LE_20160809_Nikon210X_Fn_plate_2016018130_IF_t48',

@@ -57,7 +57,8 @@ for a =1:size(img_folders,1)
     P.title = img_folders{a,1};
     P.Mtype = MS2;
     p = strcat(prefix,subname_plate);
-    save(fullfile(plate_infopath,p),'P')
+    fullname = fullfile(plate_infopath,p);
+    save(fullname,'P')
 end
 
 end
