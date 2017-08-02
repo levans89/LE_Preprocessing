@@ -3,7 +3,10 @@ from pyExplorer.rawDataExplorer import imageprint
 pprinter = imageprint.PlatePrinter("W:\\2015_09_HTS_LE\\Code_LE\\Global_config\\basicSettingsLocal.py")
 
 
-plateNames = ['LE_20170719_InCell2000_plate_2017018396_10x_t48',
+plateNames = ['LE_20170719_InCell2000_plate_2017018399_10x_t48',
+              'LE_20170719_InCell2000_plate_2017018398_10x_t48',
+              'LE_20170719_InCell2000_plate_2017018397_10x_t48',
+              'LE_20170719_InCell2000_plate_2017018396_10x_t48',
               'LE_20170719_InCell2000_plate_2017018395_10x_t48',
               'LE_20170719_InCell2000_plate_2017018394_10x_t48',
               'LE_20170719_InCell2000_plate_2017018393_10x_t48',

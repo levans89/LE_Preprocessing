@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../CD_Tag_Drug_Screen" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../LE_Analysis" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="W:/PyCommonLibrary" vcs="Git" />
   </component>
 </project>
