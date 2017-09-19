@@ -1,24 +1,28 @@
+#sys.path.insert(0, 'W:\PyCommonLibrary\pysrc')
 from pyExplorer.rawDataExplorer import imageprint
 import pandas as pd
 import os
 import sys
+import shutil
 sys.path.insert(0, 'W:\\2015_09_HTS_LE\\Code_LE\\Global_config')
+
 import basicSettingsLocal_Image_flatten
 # Note to self: should run this code in directory 'W:\\2015_09_HTS_LE\\Code_LE\\LE_Preprocessing\\PythonScripts'
 
-
+printer = imageprint.ImagePrinter(
+    'W:\\2015_09_HTS_LE\\Code_LE\Global_config\\basicSettingsLocal_Image_flatten.py')
 levelsets = [(40, 1000), (40, 1000), (40, 1000), (40, 1000)]  # between 0 and 4095 for 2x2 binned image
 color_order = ["B", "G", "R", "W"]  # Tell colors for channels in the same order.
 # Only options: R for red, G for green, B for blue and W for white
 
-hit_list = pd.read_excel('W:\\2015_09_HTS_LE\\results\\Images\\Selleck_Bioactives\\hit_list_XRCC5_2K.xlsx', 0)
 
+hit_list = pd.read_excel('W:\\2015_09_HTS_LE\\results\\Images\\Selleck_Bioactives\\hit_list_XRCC5_2K.xlsx')
+
+lst_cluster_folders = []
 def image_flatten_clusters(wells, plateNames):
     # sorting into folders by cluster
-    printer = imageprint.ImagePrinter(
-                        'W:\\2015_09_HTS_LE\\Code_LE\Global_config\\basicSettingsLocal_Image_flatten.py')
-    #ind =
-    plateID = plateNames[0][28:38]  # extract the plate ID from plateNames
+    plateNames_string = plateNames[0]
+    plateID = plateNames_string[plateNames_string.find('plate') + 6:plateNames_string.find('plate') + 6 + 10] # extract the plate ID from plateNames
     for well in wells:
         for x in range(0, 537):
                 if plateID == str(hit_list.iloc[x, 3]) and well == hit_list.iloc[x, 4]:
@@ -26,19 +30,25 @@ def image_flatten_clusters(wells, plateNames):
                     newpath = 'W:\\2015_09_HTS_LE\\results\\Images\\Selleck_Bioactives\\Cluster_' + '{}'.format(cluster)
                     if not os.path.exists(newpath):
                         os.makedirs(newpath)
-                    print(newpath)
-
+                    if newpath not in lst_cluster_folders:
+                        lst_cluster_folders.append(newpath)
                     printer.image_print(plateList=plateNames, wellList=[well], levelsets=levelsets,
-                                            color_order=color_order, channels="all",
-                                            crop=500, output_folder=newpath)
+                                        color_order=color_order, channels="all",
+                                        crop=1000, output_folder=newpath)
+    # save images directly into Cluster folder, instead of in plate name sub-folders:
+    for Cluster_folder in lst_cluster_folders:
+        plates = [d for d in os.listdir(Cluster_folder) if os.path.isdir(os.path.join(Cluster_folder, d))]
+        for plate in plates:
+            plots = os.listdir(os.path.join(Cluster_folder, plate))
+            for plot in plots:
+                shutil.move(os.path.join(Cluster_folder, plate, plot), Cluster_folder)
+            # os.remove(os.path.join(Cluster_folder, plate))
 
-
+lst_pathway_folders = []
 def image_flatten_pathways(wells, plateNames):
     # sorting into folders by pathway
-    plateID = plateNames[0][28:38]  # extract the plate ID from plateNames
-    #str[str.find('plate') + 6:str.find('plate') + 6 + 10]
-    printer = imageprint.ImagePrinter(
-        'W:\\2015_09_HTS_LE\\Code_LE\Global_config\\basicSettingsLocal_Image_flatten.py')
+    plateNames_string = plateNames[0]
+    plateID = plateNames_string[plateNames_string.find('plate') + 6:plateNames_string.find('plate') + 6 + 10] # extract the plate ID from plateNames
     for well in wells:
         for x in range(0, 537):
                 if plateID == str(hit_list.iloc[x, 3]) and well == hit_list.iloc[x, 4]:
@@ -46,12 +56,32 @@ def image_flatten_pathways(wells, plateNames):
                     newpath = 'W:\\2015_09_HTS_LE\\results\\Images\\Selleck_Bioactives\\Pathway_{}'.format(pathway)
                     if not os.path.exists(newpath):
                         os.makedirs(newpath)
-                    basicSettingsLocal_Image_flatten.image_folder = newpath  # update image_folder in basicSettingsLocal_Image_flatten
+                    if newpath not in lst_pathway_folders:
+                        lst_pathway_folders.append(newpath)
                     printer.image_print(plateList=plateNames, wellList=well, levelsets=levelsets,
-                                            color_order=color_order, channels="all",
-                                            crop=500, output_folder=newpath)
+                                        color_order=color_order, channels="all",
+                                        crop=1000, output_folder=newpath)
+    # save images directly into Pathway folder, instead of in plate name sub-folders
+    for Pathway_folder in lst_pathway_folders:
+        plates = [d for d in os.listdir(Pathway_folder) if os.path.isdir(os.path.join(Pathway_folder, d))]
+        for plate in plates:
+            plots = os.listdir(os.path.join(Pathway_folder, plate))
+            for plot in plots:
+                shutil.move(os.path.join(Pathway_folder, plate, plot), Pathway_folder)
+            # os.remove(os.path.join(Pathway_folder, plate))
+
+def run(wells, plateNames):
+    image_flatten_clusters(wells, plateNames)
+    image_flatten_pathways(wells, plateNames)
+
+
+# def run_all(list_wells, list_plateNames):
+#    for e1, e2 in list_wells, list_plateNames:
+#        run(e1, e2)
 
 plateNames = ['LE_20170209_nikon210X_plate_2017018105_t48']
+wells = ['A2']
+'''
 wells =['D6',
         'D5',
         'C9',
@@ -126,8 +156,7 @@ wells =['D6',
         'P7',
         'O11']
 
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)
+run(wells, plateNames)
 
 
 plateNames = ['LE_20170209_nikon210X_plate_2017018104_t48']
@@ -283,12 +312,11 @@ wells= ['F19',
         'H21',
         'I9',
         'C15']
-
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)
+run(wells, plateNames)
 
 
 # 2017018089
+*
 plateNames = ['LE_20170211_nikon210X_plate_2017018089_t48']
 wells =['F5',
         'K13',
@@ -368,8 +396,7 @@ wells =['F5',
         'K12',
         'E8']
 
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)
+run(wells, plateNames)
 
 
 #  2017018086
@@ -490,8 +517,7 @@ wells = ['G3',
          'P13',
          'P11']
 
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)
+run(wells, plateNames)
 
 
 # 2017018081
@@ -573,8 +599,7 @@ wells =['B17',
         'G17',
         'E21']
 
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)
+run(wells, plateNames)
 
 
 #  2017018079
@@ -683,6 +708,6 @@ wells =['G9',
         'M13',
         'C9',
         'E4']
+'''
+run(wells, plateNames)
 
-image_flatten_clusters(wells, plateNames)
-image_flatten_pathways(wells, plateNames)

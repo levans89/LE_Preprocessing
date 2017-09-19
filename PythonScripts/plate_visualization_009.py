@@ -28,9 +28,8 @@ plateNames = ['LE_20170719_InCell2000_plate_2017018399_10x_t48',
               'LE_20170719_InCell2000_plate_2017018377_10x_t48',
               'LE_20170719_InCell2000_plate_2017018398_10x_t48',
               'LE_20170719_InCell2000_plate_2017018397_10x_t48']
-#    'LE_20170719_InCell2000_plate_2017018399_10x_t48',]
 
-col_number = 2  # State how many columns you wish to see on each side of the plate. So if you want the whole plate this should be 12
+col_number = 12  # State how many columns you wish to see on each side of the plate. So if you want the whole plate this should be 12
 
 
 # Levelsets for the images

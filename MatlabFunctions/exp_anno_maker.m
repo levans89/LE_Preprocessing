@@ -37,7 +37,7 @@ map(2:17,1) = cellstr(('A':'P')')';
 map(1,2:25) = num2cell(1:24);
 
 %find position of the experiment plate in the plate database
-for k = pos(1):pos(end)
+for k = pos(14):pos(end)
     
     info{6,2}= Exp_DB{k,5};
     disp(num2str(Exp_DB{k,5}))
